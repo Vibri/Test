@@ -1,0 +1,451 @@
+Function has 4 properties:
+- Name of the function
+- Parameters list
+- Body of the function
+- Return type
+
+Lambdas:
+- Type Inference and Invokedynamic 
+
+Lambda
+- Pass Behaviour as Parameter
+- vs Declarative programming where the programmer says what to do rather than how to do
+
+Functional programming is subset of Declarative programming
+
+
+Function: can have
+- Access Modifier (Public, Private, protected etc)
+- return type
+- name of the Function
+- Parameters List and Parameters Type
+- Method Body
+- Return statement (In case anything to be returned)
+
+Lambda: just have
+- A list of parameters
+- An arrow -> which seperates the list of parameters from the body of the lambda function
+- The body of the lambda
+
+
+PREDEFINED FUNCTIONAL INTERFACES
+--------------------------------
+- java.util.function
+
+PREDICATE - to test condition
+
+CONSUMER - 
+
+FUNCTION - 
+
+SUPPLIER - 
+
+Functional interface			|	Function descriptor				|	Primitive specializations
+---------------------------------------------------------------------------------------------------
+Predicate<T>					|	T -> boolean					|	IntPredicate, LongPredicate, DoublePredicate
+Consumer<T>						|	T -> void						|	IntConsumer, LongConsumer, DoubleConsumer
+Function<T,R>					|	T -> R							|	IntFunction<R>, IntToDoubleFuntion,
+																		IntToLongFunction, LongFunction<R>,
+																		LongToDoubleFunction, LongToIntFunction,
+																		DoubleFunction<R>, ToIntFunction<T>,
+																		ToDoubleFunction<T>, ToLongFunction<T>
+Supplier<T>						|	() -> T							|	BooleanSupplier, IntSupplier, LongSupplier, DoubleSupplier
+UnaryOperator<T>				|	T -> T							|	IntUnaryOperator, LongUnaryOperator, DoubleUnaryOperator
+BinaryOperator<T>				|	(T,T) -> T						|	IntBinaryOperator, LongBinaryOperator, DoubleBinaryOperator
+BiPredicate<L,R>				|	(L,R) -> boolean				|	
+BiConsumer<T,U>					|	(T,U) -> void					|	ObjIntConsumer<T>, ObjLongConsumer<T>, ObjDoubleConsumer<T>
+BiFunction<T,U,R>				|	(T,U) -> R						|	ToIntBiFunction<T,U>, ToLongBiFunction<T,U>, ToDoubleBiFunction<T,U>
+
+METHOD REFERENCE
+----------------
+
+we use syntax OBJECT :: METHOD_NAME
+System.out :: println
+
+1. Method referenco to instance method of an existing object
+object::instanceMethod
+
+2. Method reference to a static method of a class
+Class::staticMethod
+
+3.Method reference to an instance method of an input object of a particular type
+Class::instanceMethod
+
+4. Method refrence to a Constructor
+Class::new
+
+
+Java OPTIONAL
+-------------
+Public class Computer {
+	private Optional<Soundcard> soundcard;
+	public Optional<Soundcard> getSoundcard() {..}
+}
+
+public class Soundcard {
+	private Optional<USB> usb;
+	public Optional<USB> getUSB() {..}
+}
+
+public class USB{
+	public String getVersion(){..}
+}
+
+String version =  UNKNOWN ;
+if(computer != null) {
+	Soundcard soundcard = computer.getSoundcard();
+	if (soundcard != null) {
+		USB usb = soundcard.getUSB();
+		if (usb != null) {
+			version = usb.getVersion();
+		}
+	}
+}
+
+Methods to deal with  null 
+----------------------------
+empty()
+of(<value>)
+ofNullable(<value>)
+
+OPTIONAL
+---------
+- 16 Bytes
+- An object
+- Immutable
+
+Unwrap the value back
+---------------------
+Integer a = 10;
+Optional<Integer> optional = Optional.of(a);
+// get()
+Integer integerVal = optional.get();
+- never use optional.get(), it is a risky method. If you are not sure that optional contains value, don't use this method.
+Optional<Integer> emptyOptional = Optional.empty();
+emptyOptional.get(); -- throw NoSuchElementException
+
+// isPresent()
+Integer value = optional.isPresent() ? optional.get() : 0;
+
+// orElse(), orElseGet()
+Integer orElse = optional.orElse(0);
+
+Integer orElseGet = emptyOptional.orElseGet(()-> 0);
+
+// orElseThrow()
+Integer orElseThrow = emptyOptional.orElseThrow(() -> new IllegalArgumentException());
+
+// orElseThrow() = get() - both throws NoSuchElementException
+
+Important methods
+-----------------
+Optional<String> optional = Optional.of( Value );
+// map()
+Optional<String> map = optional.map(val ->  Replaced );
+
+// filter()
+Optional<String> filter = optional. filter(val -> val.equalsIgnoreCase( Value ));
+
+// flatMap()
+Optional<String> flatMap = optional.flatMap(val -> Optional.of( Replaced by Flat map ));
+
+// ifPresent()
+Optional<String> optional = Optional.of( Value );
+optional.ifPresent(System.out::println);
+optional.ifPresent(val -> System.out.println( This is a   + val));
+Optional.empty().ifPresent(System.out::println); --- nothing happens
+
+// ifPresentOrElse()
+
+optional.ifPresentOrElse(System.out::println, () -> System.out.println( Value is absent ));
+
+// stream()
+optional.stream().forEach(System.out::println);
+
+//or()
+optional.or(() -> Optional.of( NEw value ))
+- or can return null, so it will results in NUllPointerException
+
+// equals()
+- it is also an optional
+- either both are empty
+- or if the values in optionals are equal to each other via equals method
+optional.equals(Optional.of( Value ));
+
+// hashCode()
+optional.hashCode()
+- if optional is empty it returns 0
+
+Functional Programming
+//////////////////////
+- everything is in a form of pure mathematical Functions
+- in OOP we play with a object state
+- it is a declarative style of programming
+- focus on WHAT TO SOLVE rather than how to solve
+	- instead of writing statements one after other, functional programming makes use of expressions
+	
+			OO Programming 					vs						Functional Programming
+			--------------------------------------------------------------------------------
+			Object method(Object o);								Supplier method(Function fun);
+			
+			
+Functions as first class citizen
+--------------------------------
+in OOP 
+	int result = myFunction(int a);
+in Functional Programming
+	Function aFun = myFunction(Function fun);
+
+Pure functions
+---------------
+- characteristics
+	- 1. The output of a pure function depends only on (a) its input parameters and (b) its internal algorithm.
+	- 2. A pure function has no Side Effects
+	
+public class PureFunction {
+	public int sum(int a, int b) {
+		return a + b;
+	}
+}
+	
+public class ImpureFunction {
+	private int value = 0;
+	
+	public int add(int nextValue) {
+		this.value += nextValue;
+		return this.value;
+	}
+}
+
+- how to detect pure function - When you substitude the calls of function the result must be same (also the logging)
+- for example - the priinting on the console is not pure function. It is the side effect.
+- No Side Effect
+
+
+Higher order functions
+----------------------
+- Higher order functions are functions which take functions as arguments or return function as output
+- .. higherOrderFunction(Function one, Function orMore);
+				or
+  Function higherOrderFunction(..);
+
+
+Referencial Transparency
+-------------------------
+- Referencial transparency is A property of a function, variable, or expression whereby the expression can be 
+replaced by its (evaluated) value without affecting the bahaviour of the program. 
+
+Functional Programming Techniques
+/////////////////////////////////
+
+Functional chaining
+-------------------
+obj.performThis()
+	.andThenThis()
+	.andThenThis()..
+
+Functional Composition
+----------------------
+a.compose(b) - first is executed function b and on the result is executed the function a
+- it is in the reverse order against the chaining
+
+
+Closures
+--------
+- A closure is a function that refers to free variables in its lexical context.
+
+@FunctionalInterface
+public interface Task {
+	void doTask();
+}
+
+public static void main(String[] args) {
+	int val = 111;
+	
+	Task lambda = () => {
+			System.out.println(val); - val should be final or effectively final
+			System.out.println( Task completed );
+	};
+	
+	printValue(lambda);
+} 
+
+private static void printValue(Task lambda) {
+	lambda.doTask();
+}
+
+Currying
+--------
+Restructure a multiparameter function into multiple functions having single parameter each.
+
+Function<Integer, Function<Integer, Integer>> fun1 = u -> {
+	return v -> u+v;
+};
+
+Function<Integer, Integer> fun2 = fun1.apply(1);
+Integer sum = fun2.apply(2)
+
+Integer sum2 = fun1.apply(1).apply(2);
+
+
+Lazy evaluation
+---------------
+- lambdas are lazyly evaluated
+- () -> new Person( John , 34); - Lazy initialization
+
+
+Tail Call Optimization
+----------------------
+(Tail Call Recursion)
+	
+	Normal recursion
+	- public static long reFactorial(int n) {
+		if(n <= 1) {
+			return 1;
+		}
+		
+		return n*reFactorial(n-1);
+	}
+	
+	Tail Recursion
+	- public static long tailRecursiveFactorial(int n, int a) {
+		if ( n <= 1) {
+			return a;
+		}
+		else 
+		return tailRecursiveFactorial(n-1, n*a);
+	 }
+	 
+	 - Compiler can convert tail recursion into a Pure Iteration
+	 Tail Recursion => Pure Iteration
+	 
+	 
+DESIGN PATTERNS
+//////////////////
+
+Iterator design PATTERN
+-----------------------
+- travers through the set of objects without exposing internal structure
+
+class MyContainer implements Iterable<String> {
+	@Override
+	public Iterator<String> iterator() {
+		return new Iterator<String>() {
+			@Override
+			public boolean hasNext() {
+			
+			}
+			
+			@Override
+			public String next() {
+			
+			}
+		}
+	}
+}
+- in functional programming we don't need to implement this interface
+e.q.
+class MyArrayList {
+	Object[] elements = new Object[5];
+	
+	public MyArrayList(Object[] elements) {
+		this.elements = elements;
+	}
+	
+	public void forEach(Consumer action) {
+		for (int i=0; i < elements.length; i++) {
+			action.accept(elements[i]);
+		}
+	}
+}
+
+STRATEGY DESIGN PATTERN
+------------------------
+The strategy design pattern is used when we have multiple solution or algorithms
+to solve a specific task and client decides the specific implementation
+which is to be used at runtime
+
+
+DECORATOR DESIGN PATTERN
+------------------------
+The Decorator design pattern is used to modify functionality of object at runtime without affecting other instances of the same class.
+
+- in functional programming we don't modify the instance state, but we return a new instance
+
+FLUENT INTERFACE
+-----------------
+- A fluent interface provides an easy-readable, flowing interface,that often mimics a domain specific language.
+Using this pattern results in code that can be read nearly as human language.
+
+FACTORY METHOD PATTERN
+----------------------
+- Creational PATTERN
+- creating object without exposing instantiation logic
+- The factory design pattern is a way to instantiating a class inside a designated method that we call a factory method.
+- Factory is an object that is able to create other objects
+
+BUILDER DESIGN PATTERN
+-----------------------
+- builder pattern is all about providing flexibility in Object Creation. The intern of the builder design pattern is to
+isolate the construction of a complex object from its representation.
+
+StringBuilder str = new StringBuilder();
+str.append( Basics );
+str.append( Strong );
+
+
+COMMAND DESIGN PATTERN
+-----------------------
+Encapsulating a request as an object.
+A way to encapsulate a request as an objec, parameterize clients with different requests and perform corresponding operations.
+
+
+Higher Order Functions in Streams
+------------------------------------
+1. Filter
+2. Map
+3. Reduce
+
+filter() - functional equivalent of if statement
+Takes a predicate.
+
+Reduce
+-------
+reduce to a single result of stream
+	- find a sum of all elements v1+v2+v3+v4
+	- find a product of all elements v1*v2*v3*v4
+	- find max
+	- find min
+	
+Stream iterator
+------------------
+Stream.iterate(0,i -> i-1)  // (seed, unary operator) seed-first element of the stream, unary operator- how to calculate next element
+	.limit(15)
+	.forEach(System.out::println);
+
+Stream.generate(() ->  Hello )		- infinite Hello
+	.forEach(System.out::println);
+	
+Stream.generate(new Random() :: nextInt)
+		.forEach(System.out::println);
+
+Functional Data Structure
+----------------------------
+- Not imperative; implemented in functional way
+- a functional data structure is 
+		- immutable
+		- persistent
+- methods in Functional data Structures are referential transparent
+
+Mutable Data Structure
+	- Need to guard access
+	- Put Locks | Synchronization
+	
+	X
+	
+Functional Data Structure
+	- Secure! as its immutable
+	
+Why it's tough?
+	- No destructive updates!
+	- It has to be persistent

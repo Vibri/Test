@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2db2a736-c4ad-4e64-9624-c498986f72e6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ArrayBlockingQueueExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/AtomicIntegerExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/CallableExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/CollectionsSynchronizationExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ConcurrentArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ConcurrentMapExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ConcurrentMapExample2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/CopyOnWriteArraysExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/CustomObjectLocking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/CyclicBarrierExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/DelayQueueExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ExchangerExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/FixedThreadPoolExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/LatchExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/LinkedBlockingQueueExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/LockExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/PriorityBlockingQueueExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/PriorityExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ProblemsWithMultithreadingExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ProducerConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ProducerConsumerReentrantLock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ReadTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/ScheduledThreadPoolExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/SemaphoreExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/SingleThreadExecutorExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/StoppingExecutorsExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/VolatileKeyword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/WaitNotify.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/WriteTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/diningPhilosophers/Chopstick.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/diningPhilosophers/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/diningPhilosophers/DiningPhilosophersApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/diningPhilosophers/Philosopher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/diningPhilosophers/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/mergeSort/MergeSort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/mergeSort/ParallelMergeSort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/mergeSort/SequencialParallelMergeSortComparisonApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/mergeSort/SortApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/runners/DaemonExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/studentsInLibrary/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/studentsInLibrary/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/studentsInLibrary/StudentsConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/studentsInLibrary/StudentsLibraryApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/sum/SequencialSum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/sum/SumApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Functional&amp;ReactiveProgrammingInJava-ModernStyle/functional-programming/Functional-Programming-Project/src/com/basicsstrong/functional/practice/ConstructorReference.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Functional&amp;ReactiveProgrammingInJava-ModernStyle/functional-programming/Functional-Programming-Project/src/com/basicsstrong/functional/section3/FunctionalInterfaceDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Functional&amp;ReactiveProgrammingInJava-ModernStyle/functional-programming/Functional-Programming-Project/src/com/basicsstrong/functional/section3/ImperativeVsDeclarative.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Functional&amp;ReactiveProgrammingInJava-ModernStyle/functional-programming/Functional-Programming-Project/src/com/basicsstrong/functional/section3/LambdaUnderTheHood.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Functional&amp;ReactiveProgrammingInJava-ModernStyle/functional-programming/Functional-Programming-Project/src/com/basicsstrong/functional/section5/OptionalExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/src/app/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/src/app/header/header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/src/app/user-input/user-input.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/src/app/user-input/user-input.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/03- practice/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/03- practice/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Angular/Angular.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Angular/Angular.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/App2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/app/App2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/runners/Run1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/runners/Run1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/runners/Run2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Concurrency/src/cz/vibri/concurrency/runners/Run2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Oracle-SQL/SQL_Performance_Tuning.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Oracle-SQL/SQL_Performance_Tuning.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Oracle-SQL/SQL_basics.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Oracle-SQL/SQL_basics.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="3400ZjFxVBYQAViKluKO9pyTO0F" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Lec04MonoEmptyError.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Lec05MonoFromSupplier.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Lec07MonoFromRunnable.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Lec08MonoFromFuture.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Lec10MonoDefer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MonoJust.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MonoSubscribe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SubscriberPublisherDemo.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cz.vibri.sec2" />
+      <recent name="cz.vibri.common" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Lec10MonoDefer">
+    <configuration name="Lec04MonoEmptyError" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cz.vibri.sec2.Lec04MonoEmptyError" />
+      <module name="Reactive-programming-playground" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.vibri.sec2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lec05MonoFromSupplier" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cz.vibri.sec2.Lec05MonoFromSupplier" />
+      <module name="Reactive-programming-playground" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.vibri.sec2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lec07MonoFromRunnable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cz.vibri.sec2.Lec07MonoFromRunnable" />
+      <module name="Reactive-programming-playground" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.vibri.sec2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lec08MonoFromFuture" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cz.vibri.sec2.Lec08MonoFromFuture" />
+      <module name="Reactive-programming-playground" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.vibri.sec2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lec10MonoDefer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cz.vibri.sec2.Lec10MonoDefer" />
+      <module name="Reactive-programming-playground" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cz.vibri.sec2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Lec10MonoDefer" />
+        <item itemvalue="Application.Lec08MonoFromFuture" />
+        <item itemvalue="Application.Lec07MonoFromRunnable" />
+        <item itemvalue="Application.Lec05MonoFromSupplier" />
+        <item itemvalue="Application.Lec04MonoEmptyError" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2db2a736-c4ad-4e64-9624-c498986f72e6" name="Changes" comment="" />
+      <created>1760335243269</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760335243269</updated>
+    </task>
+    <servers />
+  </component>
+</project>
