@@ -1,0 +1,557 @@
+Intrinsic Lock (Monitor)
+------------------------
+
+public synchronized void increment() {
+	counter++;
+}
+
+- every object in Java has a so-called intrinsic lock
+ A thread that needs exclusive and consistent access to an object's fields
+has to acquire the object's intrinsic lock before accessing them, and then 
+release the intrinsic lock when it's done with them 
+
+- because of the monitor lock: no 2 threads can execute the same synchronized method at the same time
+- a thread owns the intrinsic lock between the time it has acquired the lock and released the lock
+- as long as a thread owns an intrinsic lock no other thread can acquire the same lock
+- the other thread will block when it attempts to acquire the lock
+
+THE PROBLEM IS THAT EVERY OBJECT HAS A SINGLE MONITOR LOCK
+
+- if we have 2 independent synchronized methods than the threads have to wait for each other to release the lock
+
+Object level locking
+--------------------
+public synchronized void increment() {
+        counter++;
+}
+
+public void increment() {
+	synchronized(this) {
+		counter++;
+	}
+}
+
+- This is called object level locking because we get the monitor lock (intrinsic lock) 
+associated with the object itself
+
+
+Class level locking
+---------------------
+public static synchronized void increment() {
+        counter++;
+}
+
+public static void increment() {
+	synchronized(SomeClass.class) {
+		counter++;
+	}
+}
+
+- This is called class level lockig because we get the monitor lock (intrinsic lock) associated with the class
+
+//////
+- usually it is not a good practise to use synchronized keyword
+- it is more common to use synchronized block
+
+Threads Communication
+---------------------
+- Threads that are locking on the same intrinsic lock (monitor) can release the lock until the other thread calls notify
+- Note: These wait() and notify() methods can be used and called from synchronized methods or blocks exclusively
+
+Sleep VS Wait
+-------------
+- you can  wait  on the Object while on the other hand you can  sleep  on the Thread itself
+- wait can be interrupted (this is why we need the InterruptedException) while on the other hand sleep can not
+-  wait  (and  notify ) must happen in a synchronized block on the monitor object whereas sleep does not
+-  sleep  operation does not release the locks it holds while on the other hand  wait  releases the lock on the object that  wait()  is called on
+
+Lock and ReentrantLock
+----------------------
+- it has the same behaviour as the  synchronized approach 
+- of course it has some additional features
+	- new ReentrantLock(boolean fairness)
+		- if the fairness parameter is set to be TRUE then the longest waiting thread will get the lock
+		- if the fairness is FALSE then there is no access order
+
+IMPORTANT: a good approach is to use try-catch-finally blocks when doing the critical section and call unlock() in the finally block
+
+Locks and Synchronized Blocks
+-----------------------------
+
+A Reentrant lock has the same basic behaviour as we have seen for synchronized blocks (with some extended features)
+	- we can make a lock fair: prevent thread starvation Synchronized blocks are unfair by default
+	- we can check whether the given lock is held or not with reentrant locks
+	- we can get the list of threads waiting for the given lock with reentrant locks
+	- synchronized blocks are nicer: we do not need the try-catch-finally block
+	
+VOLATILE KEYWORD
+----------------
+Every read of volatile variable will be read from the RAM so from the main memory (and not from cache)
+- usually variables are cached for performance reasons
+- caches are faster. Do not use volatile keyword if not necessary (+ it prevents instruction reordering which is a performance boost technique)
+
+
+MUTEX (Mutual Exclusion Object)
+-------------------------------
+ Mutual exclusion is a property of concurrency control which is instituted for the purpose of preventing race conditions 
+
+- process synchronization plays an important role in maintaining the consistency of shared data (critical section problem)
+- mutex is very similar to a binary semaphore: while binary semaphore can be used as mutex, a mutex is a more specific use-case
+- a Lock is designed to enforce a mutual exclusion concurrency control policy
+
+
+Semaphore
+---------
+ It is a record of how many untis of a particular resource are available. We have to wait until a unit of the resource becomes available again. 
+- COUNTING SEMAPHORE: allows an arbitrary resource count
+- BINARY SEMAPHORE: semaphores that are restricted to the values 0 and 1
+
+
+Mutexes (Mutual Exclusion Objects)
+---------------------------------
+SEMAPHORE 
+	- it is a signalling mechanism
+	- threads and processes perform wait() and notify() operations to indicate whether they are acquiring or releasing the resource
+	- semaphore allows multiple program threads to access thee finite instance of resources (not just a single resource)
+	- the process or thread blocks itself if no resource is free till the count of semaphore become greater than 0
+
+MUTEX
+	- mutex is locking mechanism
+	- threads or processes have to acquire the lock on mutex object if it wants to acquire the resource
+	- mutex allows multiple program threads to access a single shared resource but one at a time
+	- if the loack is already acquired by another thread or process then the thread will wait until the mutex object gets unlocked
+	
+THREAD POOLS
+------------
+When you manually create and manage lots of threads using  new Thread()  especially in large-scale or high-throughput applications, you 
+run into several serious problems:
+- HIGH MEMORY CONSUMPTIONS
+	- Each Java  thread requires memory for its stack(typically 512 KB to 1MB per thread, depending on the JVM and platfrm)
+- HIGH CPU OVERHEAD
+	- Each thread has its own execution context. When many threads compete for CPU, the OS must context switch between them
+- MANUAL LIFECYCLE MANAGEMENT
+	- We must handle starting new threads, joining the threads if necessary, handling exceptions etc.
+	
+Java 
+- a thread pool in Java is a collection of worker threads that are reused to execute many tasks
+- instead of creating a new thread for every task (which is expensive), tasks are submitted to a pool, and threads pick up and execute them
+- Java provides thread pools through the ExecutorService interface and its implementations
+- threads are created once and reused for multiple tasks - it reduces overhead of frequent thread creation and destruction
+- if all threads are busy, submitted tasks are queued - they are held in a BlockingQueue data structure until a thread becomes available
+
+- newFixedThreadPool(n)
+	- The thread pool is initialized lazily - threads are not created at the start but they are created on demand, up to corePoolSize
+	- Once all threads are created and busy, new tasks are put into the queue and wait until a thread becomes available
+	
+- newCachedThreadPool()
+	- the thread pool creates new threads as needed and reuses previously constructed threads when available
+	- This approach automatically removes idle threads after a short timeout (after 60 seconds by default)
+	- it is designed for applications that launch many short-lived asynchronous tasks
+	
+- newSingleThreadExecutir()
+	- This creates a thread pool that uses only one worker thread to execute tasks sequentially + uses unbounded queue
+	- If the thread dies (e.g., via exception), then a new thread is created automatically
+	
+- newScheduledThreadPool(n)
+	- This creates a thread pool that can either schedule tasks to run after a delay or schedule tasks to run periodically
+	- Thread starvation risk: if your core pool size is small and scheduled tasks are long-running, new scheduled tasks may be delayed
+	- use it when you need tasks to run on a timer or at regular intervals
+	
+- SUPPORTS FUTURE NAD CALLABLE
+	- you can submit task that return values using Callable and the result is wrapped in a Future object
+- AUTOMATIC THREAD LIFECYCLE MANAGEMENT
+	- You do not need to maually manage start() and join(). The executor handles creation, execution and shutdown of threads
+- THREAD REUSE
+	- Threads are created once and reused for multiple tasks. It reduces overhead of frequent thread creation and destruction
+	
+Decouples task submission from execution
+	- You can submit tasks at any time without blocking the main thread. The main thread can continue doing other work or exit if the executor is running in the background
+
+Improves task management and organization
+	- You can queue up multiple tasks and they'll run one after another, in the order submitted. You don't have to manage thread lifecycle or manually  create or join threads
+
+Helps avoid concurrency bugs
+	- Since it quarantees tasks are run sequencially, it's safer for cases where multiple tasks share mutable state.
+	
+	
+	
+RUNNABLE AND CALLABLE
+/////////////////////
+In Java, both Runnable and Callable are functional interfaces used to represent tasks that can be executed by threads or executor services - but they have some key differences
+
+RUNNABLE
+---------
+- represents a task that does not return a result
+- cannot throw a checked exception
+- can be executed using both execute() and submit() methods from an ExecutorService
+
+CALLABLE
+---------
+- represents a task that returns a result of type V
+- can throw checked exceptions
+- executed via the submit() method of an ExecutorService that returns with a Future object containing the result
+
+Callable<String> task = () -> { return  Hello from Callable! ; }
+ExecutorService executor = Executors.newSingleThreadExecutor();
+Future<String> future = executor.submit(task);
+String result = future.get(); // blocks until result is available
+System.out.println(result); //Output: Hello from Callable!
+
+- with virtual threads the get is not so big problem with blocking -- I have to study more about it
+
+Feature						RUNNABLE						CALLABLE
+------------------------------------------------------------------
+Returns a result?			No								YES
+Throws checked exception?	No								YES
+Introduced in 				Java 1.0						Java 5
+Use with Executors?			Yes(submit/task)				Yes(submit/get result)
+Functional Interface?		Yes(SAM interface)				Yes
+
+
+HOW to make collections threadsafe
+//////////////////////////////////
+
+
+
+
+CountDownLatches
+/////////////////
+
+Joining threads
+---------------
+- Threads are creating dynamically
+	- We want to use thread pool (e.g. ExecutorService) and we want one thread to wait for many without tracking individuals threads
+
+- Must track each thread
+	- When you use Thread.join(), you must manually track each Thread object if you want to wait for their completion - we need to store all thread references
+	
+Decoupling task coordination
+	- CountDownLatch solves this by decoupling task coordination from thread tracking. The main thread doesn't need to know or track threads at all
+	
+CountDownLatch
+	- is a synchronization aid in Java's java.util.concurrent package. It lets one or more threads wait until a set of operations being performed in other threads complete
+	- by using a CountDownLatch we can cause a thread to block until other threads have completed a given task
+	- a CountDownLatch has an internal counter, which can be decremented by calling countDown() as needed. It can be used to block a calling thread until the counter reaches zero
+	- if we were performing parallelprocessing, we cound instantiate the CountDownLatch with a counter value equal to the number of threads we want to run in parallel
+	- then, we could just call countDown() after each thread finishes, guaranteeing that a dependent thread calling await() will block until the worker threads are finished
+	
+FEature / Use Case												|	Thread.join()									| CountDownLatch
+-----------------------------------------------------------------------------------------------------------------------------------------
+Wait for thread(s) to finish									|	YES												|	YES
+Wait for multiple threads										|	Not directly - must join each manually			|	Yes - one await() for all
+Works with ExecutorService/Runnables							|	No (join() requires actual Thread)				|	Yes - works with any threads
+Reusable for coordination (flexible)							|	No - only waits for termination					|	Yes - can be used in many coordination patterns
+Clean separation of wait/count logic							|	No - logic is tied to thread lifecycle			|	Yes - latch is separate from threads
+
+
+CyclicBarriers
+///////////////
+Latch -> a single thread can wait for other threads
+CyclicBarrier -> multiple threads can wait for each other
+
+A CyclicBarrier is used in situations where you want to create a group of tasks to perform work in a concurrent manner + wait until they are all 
+finished before moving on to the next step
+	-> something like join()
+	-> something like CountDownLatch
+	
+CountDownLatch: one-shot event
+CyclicBarrier: it can be reused over and over again
+	+ cyclicBarrier has a barrier action: a runnable, that will run automatically when the count reaches 0 !!
+	
+new CyclicBarrier(N) -> N threads will wait for each other
+
+WE CAN NOT REUSE LATCHES BUT WE CAN REUSE CyclicBarrier -- reset()!!!
+
+
+FEature / Use Case												|	CyclicBarrier									| 	CountDownLatch
+-----------------------------------------------------------------------------------------------------------------------------------------
+Purpose															|	Wait for each other (multiple threads sync		|	Wait for others to finish (main waits for workers)
+																|	at a barrier)									|
+
+Reusable														|	YES												|	No (one-time use)
+
+Callback support												|	YES (Runnable action at barrier)				| 	No
+
+All threads wait												|	Yes (all call await())							|	No (typically one thread calls await())
+
+
+BLOCKING QUEUE
+//////////////
+A BlockingQueue is a thread-safe queue that is a part of java.util.concurrent and is widely used in producer-consumer scenarios
+- it is blocked when you try to take from an empty queue (the thread has to wait)
+- it is blocked when you try to put into a full queue (if it's bounded, the thread waits)
+
+Implementation										|	Locking Behavior									|	Thread Safety
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ArrayBlockingQueue									|	Uses a single lock (fair or unfair)					|	YES
+LinkedBlockingQueue									|	Uses separate locks for put and take (two locks}	|	YES
+PriorityBlockingQueue								|	Uses a single lock									|	YES
+ConcurrentLinkedQueue								|	Lock-free, uses CAS and volatile					|	YES
+SynchronousQueue									|	No actual storage, uses internal hand-off mechanism	|	YES
+
+ArrayBlockingQueue
+-------------------
+12
+43
+87
+51
+6
+31
+49
+98
+
+- if one thread wants to insert or delete item the whole array is blocking
+- it uses a fixed-size array to store elements (no dynamic resizing happens under the hood)
+- it maintains an index for the head (next element to remove) and index for the tail (next slot to insert)
+- we do not shift items - it is like a circular buffer
+- uses a single lock for all operations, so threads must wait even if they are doing different things (e.g., one inseting, another removing)
+- this can limit performance under high concurrency, but it's more memory-efficient and predictable, making it suitable for certain real-time or memory-sensitive applications
+
+BlockingQueue<Integer> queue = nee ArrayBlockingQueue<>(10, true);
+BlockingQueue<Integer> queue = nee ArrayBlockingQueue<>(10, false);
+
+ArrayBlockingQueue uses a ReentrantLock that may be fair or not nad that lock controls access to the queue for both put() and take()
+- it is blocked when you try to put into a full queue (if it's bounded, the thread waits)
+
+fair = true
+- the lock uses FIFO ordering - threads acquire the lock in the order they requested it
+fair = false
+- default option, threads may acquire the lock out of order, which increases throughput but may starve some threads
+
+LinkedBlockingQueue
+-------------------
+LinkedBlockingQueue<E> queue = new LinkedBlockingQueue<>();
+LinkedBlockingQueue<E> queue = new LinkedBlockingQueue<>(int capacity);
+- capacity is the size of thee underlying data structure
+- there is optional capacity - can be bounded (when we decide the capacity) or unbounded
+- if no capacity is specified, it uses Integer.MAX_VALUE as the upper bound
+- the take() method removes an element from the head of the queue
+- the put(E e) method adds the element to the tail of the queue
+- there are independent locks for both methods
+
+Requirement										|	Recommended QUEUE
+-----------------------------------------------------------------------
+Unbounded or growing queue						|	LinkedBlockingQueue
+
+Fixed-size queue, high throughput				|	ArrayBlockingQueue
+
+Lower GC pressure needed						| 	ArrayBlockingQueue
+
+More flexible concurrency(dua locks)			|	LinkedBlockingQueue
+
+Known capacity, simple structure				|	ArrayBlockingQueue
+
+DelayQueue
+-----------
+- is an unbounded BlockingQueue of objects that implement the Delayed interface
+- keeps the elements internally until a certain delay has expired
+- an object can only be taken from the queue when its delay has expired!!!
+- we cannot place null items in the queue 
+- the queue is sorted so that the object at the head has a delay that has expired for the longest time
+- if no delay has expired, then there is no head element and poll() method will return null
+- size() return the count of both expired and unexpired items!!!
+
+
+BlockingPriorityQueue
+----------------------
+- is a concurrent, unbounded, blocking queue that orders elements according to their priority
+- it is an unbounded blocking queue that uses the same ordering rules as class PriorityQueue and supplies blocking retrieval operations
+- while this queue is logically unbounded, attempted additions may fail due to resources exhaustion(causing OutOfMemoryError)
+- insertion, removal, and resizing operations are all blocking, so threads may have to wait
+- uses a single ReentrantLock to protect access to the internal heap array
+
+Feature											|	Description
+----------------------------------------------------------------------------
+Ordering										|	Based on natural ordering (Comparable) or a Comparator
+Thread-safe										|	Yes - uses a ReentrantLock internally
+BLOCKING										|	Blocks when trying to take() from an empty queue
+Unbounded										|	Automatically resizes - never blocks on put()
+Backed by a Heap								|	Binary min-heap (element with lowest priority value is at the front)
+No fairness										|	Threads are not guaranteed to be served in FIFO order
+
+ConcurrentHashMap
+/////////////////
+- we can make a map synchronized with defining segments of the underlying array
+- these segments (16 items) can be updated only by a single thread
+- we assign a lock to every segment instead of using a single lock
+- every thread can read any item from the underlying array without restrictions
+
+- ConcurrentHashMap after Java8 is a bit more complex - it uses bin-level locking an an elegant way
+- read operations in ConcurrentHashMap are thread-safe even without explicit lock or synchronized blocks
+- there are volatile fields to ensure visibility (like the value in each node) + happens-before relationships are created
+- even without acquiring any locks, you can safely read from the map without crashing or getting corrupted data
+- for write operations it uses Fine Grained Locking System(FGLS) where a smallest possible unit is locked. The bucket is the smallest unit that is locked
+- the first value is inserted via a lock-free mechanism, the so-called CAS(Compare-And-Swap)
+	- CAS is essential to grasp how modern concurrent programming avoids locking while still being thread-safe
+		//Pseudo-code for CAS
+		if (memoryValue == expectedValue) {
+			memoryValue = newValue;
+			return true;	//success
+		} else {
+			return false;	//failed, try again
+		}
+	- is a low-level atomic instruction used to safely update a variable without locking
+	- this is typically done using methods from Unsafe or VarHandle, which directly access memory with atomic operations\
+	- if CAS fails, it falls back to the standard approach of locking on the first node of the bucket
+
+Exchanger
+/////////
+- With the help of Exchanger -> two threads can exchange objects
+- exchange() -> exchanging objects is done via one of the two exchange() methods
+
+CopyOnWriteArray
+/////////////////////
+- this is the efficient implementation of the synchronized ArrayList
+- Any thread can read from the actual version of the list!!!
+- there is no need for locking when reading data from the list
+- threads that change the value in the list make copy of the list - O(N)!!!
+- this is how the update (remove or set operations) will be atomic - threads must wait for each other to update the list
+- Is quicker then Vector
+
+
+Dining philosophers problem
+-----------------------------
+How to Handle Deadlock and Livelock?
+1.) we should make sure that a thread does not block infinitely if it is unable to acquire a lock
+	-> this is why using Lock interface's tryLock() method is extremely convenient and useful
+2.) we should make sure that each thread acquires the lock in the same order to avoid any cyclic dependency in lock acquisition
+3.) livelock can be handled with the methods above and some randomness
+	- threads retry acquiring the locks at random intervals
+	
+Parallel Computing
+-------------------
+- When we use standard sequential approach then the programming language executes the operations one after another
+- multithreaded approach uses multiple threads but these threads are executed with the time-slicing algorithm
+- MULTITHREADING IS USED TO EXECUTE INDEPENDENT TASKS WITHOUT BLOCKING OTHER TASKS
+- with parallel algorithms we execute different tasks on different processors(or processor cores) simultaneously
+- PARALLELIZATION IS USED TO SPEED UP A GIVEN APPLICATION
+- by the way some problems are sequential by default so we are not able to apply parallelization
+- it depends on the operating system how the threads will be executed
+- if there is just a single processor core then the time-slicing algorithm executes the threads(multithreading)
+- if there are multiple processor cores then the operating system may execute the threads in parallel
+
+PROBLEMS WITH PARALLEL Computing
+--------------------------------
+- COMMUNICATION - 
+	- for sequential algorithms we measure the running time and memory complexity of the algorithms. 
+	Here we have to consider the communication factor between the threads.  parallel slowdown 
+
+- LOAD BALANCE - 
+	- we have to make sure to split the work evenly among the processors. We should make sure
+	that processors should not wait for each other to finish - every processor should do the same amount of work.
+
+Parallel Algorithms
+- the motivation is that we have multiple processor cores in modern machines and computers
+- we can divide the problem into multiple independent subsets and we can execute the operations on these subsets simultaneously
+- such as checking prime numbers, sorting or searching algorithms
+
+Sequential Algorithms
+- With sequential approaches the steps are usually depending on each other
+- we are not able to execute the operations independently
+- such as with numerical methods(differential equations or numerical integral)
+
+Merge Sort
+
+
+FORK Join
+------------
+What is fork join framework?
+Fork-Join framework is an implementation of the ExecutorService interface for parallel execution
+
+Fork-Join Framework
+------------------------------
+- this framework helps to make an algorithm parallel
+- we do not have to bother about low level synchronizations or locks
+- it is a divide and conquer mechanism
+- larger tasks can be divided into smaller ones and then we have to combine the subsolutions into the final solution of the problem 
+- IMPORTANT: subtasks have to be independent in order to be executed in parallel
+- so the main concept is that fork-join framework breaks the task into smaller subtasks until these subtasks are simple enough to solve without further breakups
+- for example: parallel merge sort, parallel maximum finding etc.
+
+RecursiveTask<T> it returns a generic T type
+	- All the tasks we want to execute in parallel is a subclass of this class
+		-> we have to override the compute() method that will return the solution of the subproblem
+		
+RecursiveAction it is a task, but without any return value
+
+ForkJoinPool
+	- Basically it is a thread pool for executing fork-join tasks
+	
+		work-stealing: a task is not equivalent to a thread !!!
+			Tasks are lightweight threads so fork-join will be efficient even when there are a huge number of tasks
+	- So ForkJoinPool create a fix number of threads: usually the number of CPU cores
+	
+	- These threads are executing the tasks but if a thread has no task: it can  steal  a task from more busy threads - tasks are distributed to all threads in the thread pool
+	
+	FORK-JOIN FRAMEWORK CAN HANDLE THE PROBLEM OF LOAD BALANCING QUITE EFFICIENTLY!!!
+	
+	FORK: splits the given task into smaller subtasks that can be executed in a parallel manner
+
+
+JAVA STREAM API
+---------------
+- streams were introduced starting in Java 8 - introduces functional
+programming to the Java programming ecosystem
+- streams rely heavily on lambda expressions
+- we can construct parallel operations quite easily
+
+- a stream is sequence of elements from a source that supports data processing operations
+- (data structures are about storing items and streams are about computation)
+- streams support database-like operations and common operations from functional programming languages(filter, map, reduce etc.)
+- stream operations can be executed either sequentially or in parallel
+
+- we can define intermediate operations that return a stream as well - allowing multiple operations to be chained(these are similar to database queries) - THIS IS CALLED PIPELINING!!!
+
+
+
+SOURCE						=>			INTERMEDIATE OPERATIONS					=>			TERMINAL OPERATION
+- source of the stream					(filtering, sorting etc.)							returns scalar or void
+(collection of data)																		(collect, reduce etc.)
+
+
+- collections are iterated explicitly with iterators (external iteration) but we can use a different approach with streams - THIS IS CALLED INTERNAL ITERATION!!!
+
+STREAMS AND COLLECTIONS
+------------------------
+- collections are essentially data structures in the RAM
+- collections need the whole data in advance - every element in the collection must be computed before it can be added to collection
+- this is why it takes more time to handle a collection!!!
+
+- streams provide interfaces to data structures representing a sequence set of values (like video frames being streamed over the internet)
+- streams are fixed data structures whose elements are computed on demand(lazy collections)
+- this is why streams are faster!!!
+
+- calculating all the prime numbers takes infinite time with collections as we have to fetch all of them one by one - can be traversed as many times as we want!!
+- finding all thee prime numbers can be done easily with streams because the items are calculated when needed - can be traversed only once!!!
+
+
+GROUPING BY
+- groupingBy is a collector provided by the Collectors class that allows grouping of elements in a stream based on a classifier function (like grouping people by 
+  age, employees by department etc.)
+  
+  Collectors.groupingBy(
+	Function<T,K> classifier,     -- classifier is a Function to extract the key (e.g., grouping criterion)
+	Collector<T,A,D> downstream   -- the groupingBy collector supports downstream collectors, which are operations applied to each group after the grouping has happened - so it is applied to the values of each group
+  )
+
+Downstream collectors													Description
+-----------------------------------------------------------------------------
+Collectors.toList();													Collects each group into a List
+Collectors.toSet();														Collects each group into a Set
+Collectors.counting();													Counts the number of elements in each group
+Collectors.summingInt() / summingLong() / summingDouble()				Sums values from elements in each group
+Collectors.averagingIng / averagingDouble()								Calculates the average of numeric values
+Collectors.mapping()													Transforms elements before collecting
+Collectors.reducing()													Reduces elements using a binary operation
+Collectors.collectingAndThen()											Applies an additional finishing transformation
+Collectors.maxBy() / minBy()											Finds the max/min elements in each group
+
+
+
+
+
+
+
+
+
+
